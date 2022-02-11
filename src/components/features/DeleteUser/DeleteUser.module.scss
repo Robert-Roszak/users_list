@@ -1,0 +1,22 @@
+@import '../../../styles/settings.scss';
+
+.popup {
+  background-color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -150%);
+  border-radius: 5px;
+  text-align: left;
+
+  div {
+    padding: 10px;
+  }
+
+  .buttonsWrapper {
+    justify-content: flex-end;
+    .btn {
+      width: 100%
+    }
+  }
+}

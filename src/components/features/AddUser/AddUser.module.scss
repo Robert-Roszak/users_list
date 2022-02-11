@@ -1,0 +1,21 @@
+@import '../../../styles/settings.scss';
+
+.newUser {
+  padding-bottom: 30px;
+
+  .justifyEnd {
+    justify-content: flex-end;
+    flex-direction: row;
+
+    .btn {
+      width: 100%;
+    }
+    .btnColor {
+      color: #dc3545 !important;
+      &:hover {
+        color: white !important;
+      }
+    }
+  }
+
+}

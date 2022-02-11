@@ -1,0 +1,16 @@
+@import '../../../styles/settings.scss';
+
+.root {
+  background-color: #363636;
+  .titleWrapper {
+    text-align: center;
+    justify-content: center;
+    a {
+      color: white;
+      text-decoration: none;
+    }
+    p {
+      padding-top: 1rem;
+    }
+  }
+}

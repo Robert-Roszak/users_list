@@ -1,0 +1,79 @@
+{
+  "name": "users_list",
+  "version": "1.0.0",
+  "private": true,
+  "author": "Robert Roszak",
+  "email": "robert.roszak2@gmail.com",
+  "scripts": {
+    "start": "run-p start:* ",
+    "start-silent": "run-p start > /dev/null",
+    "start:react": "react-scripts start",
+    "start-and-test": "run-p start-silent test ",
+    "start-backend": "nodemon backend/server.js",
+    "build": "react-scripts build",
+    "test": "react-scripts test --noStackTrace",
+    "test-all": "react-scripts test --watchAll=false --noStackTrace",
+    "test-related": "react-scripts test --watchAll=false --noStackTrace --findRelatedTests",
+    "test-CRUD": "mocha --watch \"./{,!(node_modules|client|dev|src)/**/}*.test.js\"",
+    "eject": "react-scripts eject"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.js": [
+      "yarn test-related --",
+      "eslint"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.36",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
+    "@fortawesome/react-fontawesome": "^0.1.16",
+    "axios": "^0.19.0",
+    "bootstrap": "5.1.3",
+    "chai": "4.2.0",
+    "chai-http": "4.3.0",
+    "clsx": "^1.0.4",
+    "cors": "2.8.5",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.15.1",
+    "express": "4.17.1",
+    "express-session": "1.17.0",
+    "mocha": "6.2.1",
+    "node-fetch": "2",
+    "normalize-css": "^2.3.1",
+    "npm-run-all": "^4.1.5",
+    "react": "^16.12.0",
+    "react-bootstrap": "^2.0.3",
+    "react-dom": "^16.12.0",
+    "react-redux": "^7.1.3",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "^3.2.0",
+    "react-test-renderer": "^16.12.0",
+    "redux": "^4.0.4",
+    "redux-thunk": "^2.3.0",
+    "uuid": "^3.4.0"
+  },
+  "devDependencies": {
+    "husky": "^3.1.0",
+    "lint-staged": "^9.4.3",
+    "nodemon": "^2.0.15",
+    "redux-devtools-extension": "^2.13.8",
+    "sass": "^1.49.7"
+  }
+}
