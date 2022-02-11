@@ -52,23 +52,19 @@ export const deleteUser = (user) => {
   };
 };
 
-export const addUser = (user) => {
-  return (dispatch) => {
+export const addUser = (user, users) => {
+  return (dispatch, getState) => {
     dispatch(fetchStarted());
-    const one = `${API_URL}/userAdd`;
-    const two = `${API_URL}/users`;
-    const requestOne = Axios.post(one, user);
-    const requestTwo = Axios.get(two);
 
-    Axios.all([requestOne, requestTwo]).then(Axios.spread((...responses) => {
-      const responseOne = responses[0];
-      const responseTwo = responses[1];
-      responseTwo.data.push(responseOne.data);
-      dispatch(fetchSuccess(responseTwo.data));
-    })).catch(err => {
-      dispatch(fetchError(err.message || true));
-    });
-
+    Axios
+      .post(`${API_URL}/userAdd`, user)
+      .then(res => {
+        users.push(res.data);
+        dispatch(fetchSuccess(users));
+      })
+      .catch(err => {
+        dispatch(fetchError(err.message || true));
+      });
   };
 };
 
@@ -137,6 +133,9 @@ export const reducer = (statePart = [], action = {}) => {
       let newStatePart = {};
       newStatePart.data = statePart.data.filter(object => object.id !== action.payload.id);
       newStatePart.data.push(action.payload);
+      newStatePart.data.sort((a, b) => {
+        return a.id - b.id;
+      });
       return {
         ...newStatePart,
         loading: {

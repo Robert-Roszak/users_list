@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Row, Col, Button, Form } from 'react-bootstrap';
 import clsx from 'clsx';
 import styles from './AddUser.module.scss';
@@ -12,6 +12,7 @@ const Component = ({onAddRef, onDeleteRef}) => {
   const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const users = useSelector((state) => state.users.data);
 
   const validateEmail = (email) => {
     const validRegex = /\S+@\S+\.\S+/;
@@ -28,11 +29,12 @@ const Component = ({onAddRef, onDeleteRef}) => {
       newUser.email = email;
       newUser.id = uuidv4();
 
-      dispatch(addUser(newUser));
-      onAddRef.current.style.display = 'none';
-      onDeleteRef.current.style.display = 'block';
       setEmail('');
       setName('');
+      dispatch(addUser(newUser, users));
+
+      onAddRef.current.style.display = 'none';
+      onDeleteRef.current.style.display = 'block';
     }
     else alert('Please provide all details');
   };
@@ -55,7 +57,7 @@ const Component = ({onAddRef, onDeleteRef}) => {
                 Name
             </Form.Label>
             <Col sm={10}>
-              <Form.Control type="text" required placeholder="Name" onChange={(event) => setName(event.target.value)}/>
+              <Form.Control type="text" required placeholder="Name" value={name} onChange={(event) => setName(event.target.value)}/>
             </Col>
           </Form.Group>
 
@@ -64,7 +66,7 @@ const Component = ({onAddRef, onDeleteRef}) => {
                 Email
             </Form.Label>
             <Col sm={10}>
-              <Form.Control type="email" required placeholder="Email" onChange={(event) => setEmail(event.target.value)} />
+              <Form.Control type="email" required placeholder="Email" value={email} onChange={(event) => setEmail(event.target.value)} />
             </Col>
           </Form.Group>
 
